@@ -1,5 +1,9 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 module.exports = {
-    dialect: process.env.DB_USER,
+    dialect: process.env.DB_DIALECT,
     username: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
