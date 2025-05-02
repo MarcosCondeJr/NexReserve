@@ -23,6 +23,16 @@ const UsuarioController = {
         } catch (err) {
             res.status(404).json({Error: err.message})
         }
+    },
+
+    async cadastrarUsuario(req, res) {
+        try {
+            const novoUsuario = await UsuarioService.cadastrarUsuario(req.body);
+
+            res.status(201).send(novoUsuario);
+        } catch (err) {
+            res.status(404).json({Error: err.message});
+        }
     }
 }
 
