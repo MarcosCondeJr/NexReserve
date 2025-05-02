@@ -34,6 +34,16 @@ class UsuarioService {
 
         return await Usuario.create({nm_usuario: nmUsuario, email_usuario: emailUsuario, senha_usuario: senhaHash, tp_usuario: tpUsuario});
     }
+
+    static async deletarUsuario(idUsuario) {
+        const usuario = await Usuario.findByPk(idUsuario);
+
+        if (!usuario) {
+            throw new Error(`Não foi possivel encontrar o Usuário com o id ${idUsuario}`)
+        } 
+
+        return await usuario.destroy();
+    }
 }
 
 module.exports = UsuarioService;

@@ -7,7 +7,7 @@ const UsuarioController = {
             res.status(200).json({usuarios});
 
         } catch (err) {
-            res.send(404).json({Error: err.message})
+            res.send(404).json(err.message)
         }
     },
 
@@ -21,7 +21,7 @@ const UsuarioController = {
 
             res.status(200).json({usuario});
         } catch (err) {
-            res.status(404).json({Error: err.message})
+            res.status(404).json(err.message)
         }
     },
 
@@ -31,7 +31,17 @@ const UsuarioController = {
 
             res.status(201).send(novoUsuario);
         } catch (err) {
-            res.status(404).json({Error: err.message});
+            res.status(404).json(err.message);
+        }
+    },
+
+    async deletarUsuario(req, res) {
+        try {
+            const usuarioDeletado = await UsuarioService.deletarUsuario(req.params.id);
+
+            res.status(200).send("Usuário deletado!");
+        } catch (err) {
+            res.status(404).send(err.message)
         }
     }
 }
