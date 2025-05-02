@@ -3,5 +3,6 @@ const router = express.Router();
 const UsuarioController = require('../controllers/UsuarioController');
 
 router.get('/', UsuarioController.listarUsuarios);
+router.get('/:id', UsuarioController.buscarUsuarioPorId);
 
 module.exports = router;

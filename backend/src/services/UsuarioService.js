@@ -7,6 +7,10 @@ class UsuarioService {
     static async listarUsuarios() {
         return await Usuario.findAll();
     }
+
+    static async buscarUsuarioPorId(idUsuario) {
+        return await Usuario.findByPk(idUsuario);
+    }
 }
 
 module.exports = UsuarioService;
