@@ -19,6 +19,10 @@ Usuario.init({
         allowNull: false,
         unique: true
     },
+    telefone_usuario: {
+        type: DataTypes.STRING(14),
+        allowNull: false
+    },
     senha_usuario: {
         type: DataTypes.STRING(200),
         allowNull: false
@@ -26,7 +30,7 @@ Usuario.init({
     tp_usuario: {
         type: DataTypes.STRING(50),
         allowNull: false
-    }}, 
+    }},
     {
         sequelize,
         modelName: 'Usuario',
