@@ -35,6 +35,16 @@ const UsuarioController = {
         }
     },
 
+    async editarUsuario(req, res) {
+        try {
+            const usuarioEditado = await UsuarioService.editarUsuario(req.params.id, req.body);
+
+            res.status(200).send(usuarioEditado);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
+    },
+
     async deletarUsuario(req, res) {
         try {
             const usuarioDeletado = await UsuarioService.deletarUsuario(req.params.id);
