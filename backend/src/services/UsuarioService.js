@@ -13,7 +13,7 @@ class UsuarioService {
     }
 
     static async cadastrarUsuario(dados) {
-        const { nmUsuario, emailUsuario, senhaUsuario, tpUsuario } = dados
+        const { nmUsuario, emailUsuario, senhaUsuario, tpUsuario, telefoneUsuario } = dados
 
         if (!nmUsuario) {
             throw new Error('É necessário informar o nome do usuário');
@@ -23,6 +23,8 @@ class UsuarioService {
             throw new Error('É necessário informar uma senha para cadastrar');
         } else if (!tpUsuario) {
             throw new Error('É necessário informar o tipo do usuário');
+        } else if (!telefoneUsuario) {
+            throw new Error('É necessário informar o telefone');
         }
 
         if (tpUsuario !== TIPO_USUARIO.ADMIN && tpUsuario !== TIPO_USUARIO.USUARIO) {
@@ -32,7 +34,13 @@ class UsuarioService {
         const ramdomSalt = nodeCrypto.randomInt(10, 16);
         const senhaHash = await bcrypt.hash(senhaUsuario, ramdomSalt, )
 
-        return await Usuario.create({nm_usuario: nmUsuario, email_usuario: emailUsuario, senha_usuario: senhaHash, tp_usuario: tpUsuario});
+        return await Usuario.create({
+            nm_usuario: nmUsuario, 
+            email_usuario: emailUsuario, 
+            senha_usuario: senhaHash, 
+            tp_usuario: tpUsuario,
+            telefone_usuario: telefoneUsuario
+        });
     }
 
     static async deletarUsuario(idUsuario) {
