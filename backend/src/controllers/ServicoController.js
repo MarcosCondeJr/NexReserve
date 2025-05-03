@@ -9,6 +9,16 @@ const ServicoController = {
         } catch (err) {
             res.status(404).json(err.message);
         }
+    },
+
+    async buscarServicoPorId(req, res) {
+        try {
+            const servico = await ServicoService.buscarServicoPorId(req.params.id);
+
+            res.status(200).json(servico);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 
