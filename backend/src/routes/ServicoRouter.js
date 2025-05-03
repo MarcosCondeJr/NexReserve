@@ -6,5 +6,6 @@ router.get('/', ServicoController.listarServicos);
 router.get('/:id', ServicoController.buscarServicoPorId);
 router.post('/', ServicoController.cadastrarServico);
 router.put('/:id', ServicoController.editarServico);
+router.delete('/:id', ServicoController.deletarServico);
 
 module.exports = router;

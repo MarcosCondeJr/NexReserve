@@ -62,6 +62,16 @@ class ServicoService {
 
         return await servico.save();
     }
+
+    static async deletarServico(idServico) {
+        const servico = await Servico.findByPk(idServico);
+
+        if (!servico) {
+            throw new Error(`Serviço não encontrado!`);
+        }
+
+        return await servico.destroy();
+    }
 }
 
 module.exports = ServicoService;

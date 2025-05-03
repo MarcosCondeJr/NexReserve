@@ -39,6 +39,16 @@ const ServicoController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async deletarServico(req, res) {
+        try {
+            const servicoDeletado = await ServicoService.deletarServico(req.params.id);
+
+            res.status(200).json(servicoDeletado);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 
