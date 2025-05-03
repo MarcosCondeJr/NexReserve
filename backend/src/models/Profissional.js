@@ -1,5 +1,7 @@
 const { DataTypes, Mode, Model } = require('sequelize');
 const sequelize = require('../config/database');
+const Servico = require('./Servico');
+const ProfissionalServico = require('./ProfissionalServico');
 
 class Profissional extends Model {}
 
@@ -27,6 +29,12 @@ Profissional.init({
         modelName: 'Profissional',
         tableName: 'profissionais',
         timestamps: true
+});
+
+Profissional.belongsToMany(Servico, {
+    through: ProfissionalServico,
+    foreignKey: 'id_profissional',
+    otherKey: 'id_servico'
 });
 
 module.exports = Profissional;
