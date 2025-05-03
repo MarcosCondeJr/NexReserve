@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database');
-const Usuario = require('./Usuario');
 
 class Servico extends Model {}
 
@@ -32,7 +31,9 @@ Servico.init({
     allowNull: false,
     }}, {
         sequelize,
-        timestamps: true
+        timestamps: true,
+        modelName: 'Servico',
+        tableName: 'servicos',
 });
 
 module.exports = Servico;
