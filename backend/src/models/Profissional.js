@@ -27,4 +27,6 @@ Profissional.init({
         modelName: 'Profissional',
         tableName: 'profissionais',
         timestamps: true
-})
+});
+
+module.exports = Profissional;
