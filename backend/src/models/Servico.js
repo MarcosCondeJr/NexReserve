@@ -38,10 +38,4 @@ Servico.init({
         tableName: 'servicos',
 });
 
-Servico.belongsToMany(Profissional, {
-    through: ProfissionalServico,
-    foreignKey: 'id_servico',
-    otherKey: 'id_profissional'
-})
-
 module.exports = Servico;
