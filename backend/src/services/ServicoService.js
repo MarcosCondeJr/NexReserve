@@ -72,6 +72,22 @@ class ServicoService {
 
         return await servico.destroy();
     }
+
+    static async desativarServico(idServico) {
+        const servico = await Servico.findByPk(idServico);
+
+        if (!servico) {
+            throw new Error('Serviço não encontrado!');
+        }
+
+        if (servico.ativo == false) {
+            throw new Error('Este serviço já está desativado!');
+        }
+
+        servico.ativo = false;
+
+        return await servico.save();
+    }
 }
 
 module.exports = ServicoService;

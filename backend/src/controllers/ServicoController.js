@@ -49,6 +49,16 @@ const ServicoController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async desativarServico(req, res) {
+        try {
+            const servicoDesativado = ServicoService.desativarServico(req.params.id);
+
+            res.status(404).send("Serviço Desativado com sucesso!");
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 
