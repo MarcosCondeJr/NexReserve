@@ -36,6 +36,32 @@ class ServicoService {
             duracao_minutos: duracaoMinutos
         });
     }
+
+    static async editarServico(idServico, dadosServico) {
+        const servico = await Servico.findByPk(idServico);
+        const { nmServico, dsServico, vlServico, duracaoMinutos } = dadosServico;
+
+        if (!servico) {
+            throw new Error(`Serviço não encontrado!`);
+        }
+
+        if (!nmServico) {
+            throw new Error('É necessário informar o nome do serviço');
+        } else if (!dsServico) {
+            throw new Error('É necessário informar a descrição');
+        } else if (!vlServico || isNaN(vlServico)) {
+            throw new Error('É necessário informar o valor do serviço corretamente');
+        } else if (!duracaoMinutos || isNaN(duracaoMinutos)) {
+            throw new Error('É necessário informar a duração do serviço corretamente');
+        }
+
+        servico.nm_servico = nmServico;
+        servico.ds_servico = dsServico;
+        servico.vl_servico = vlServico;
+        servico.duracaoMinutos = duracaoMinutos;
+
+        return await servico.save();
+    }
 }
 
 module.exports = ServicoService;

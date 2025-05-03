@@ -29,6 +29,16 @@ const ServicoController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async editarServico(req, res) {
+        try {
+            const servicoEditado = await ServicoService.editarServico(req.params.id, req.body);
+
+            res.status(200).json(servicoEditado);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 
