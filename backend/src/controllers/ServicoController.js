@@ -19,6 +19,16 @@ const ServicoController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async cadastrarServico(req, res) {
+        try {
+            const servicoNovo = await ServicoService.cadastrarServico(req.body);
+
+            res.status(201).json(servicoNovo);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 
