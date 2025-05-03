@@ -8,5 +8,6 @@ router.post('/', ServicoController.cadastrarServico);
 router.put('/:id', ServicoController.editarServico);
 router.delete('/:id', ServicoController.deletarServico);
 router.patch('/:id/desativar', ServicoController.desativarServico);
+router.patch('/:id/reativar', ServicoController.reativarServico);
 
 module.exports = router;

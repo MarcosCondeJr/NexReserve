@@ -88,6 +88,22 @@ class ServicoService {
 
         return await servico.save();
     }
+
+    static async reativarServico(idServico) {
+        const servico = await Servico.findByPk(idServico);
+
+        if (!servico) {
+            throw new Error('Serviço não encontrado!');
+        }
+
+        if (servico.ativo == true) {
+            throw new Error('Este serviço já está ativo!');
+        }
+
+        servico.ativo = true;
+
+        return await servico.save();
+    }
 }
 
 module.exports = ServicoService;

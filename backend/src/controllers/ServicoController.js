@@ -53,9 +53,19 @@ const ServicoController = {
 
     async desativarServico(req, res) {
         try {
-            const servicoDesativado = ServicoService.desativarServico(req.params.id);
+            const servicoDesativado = await ServicoService.desativarServico(req.params.id);
 
-            res.status(404).send("Serviço Desativado com sucesso!");
+            res.status(200).send("Serviço Desativado com sucesso!");
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
+    },
+
+    async reativarServico(req, res) {
+        try {
+            const servicoReativado = await ServicoService.reativarServico(req.params.id);
+
+            res.status(200).send("Serviço Reativado com sucesso!");
         } catch (err) {
             res.status(404).send(err.message);
         }
