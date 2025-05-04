@@ -1,4 +1,4 @@
-const { Profissional } = require('../models/index');
+const { Profissional }= require('../models/associations');
 
 class ProfissionalService {
     static async listarProfissionais() {

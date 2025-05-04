@@ -1,4 +1,4 @@
-const { Servico } = require('../models/index');
+const { Servico } = require('../models/associations');
 
 class ServicoService {
     static async listarServicos() {
