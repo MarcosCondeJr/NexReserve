@@ -38,6 +38,10 @@ Reserva.init({
         type: DataTypes.TIME,
         allowNull: false
     },
+    ds_reserva: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
     status_reserva: {
         type: DataTypes.STRING,
         allowNull: false
