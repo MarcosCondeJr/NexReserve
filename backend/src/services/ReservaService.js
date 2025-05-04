@@ -17,7 +17,12 @@ class ReservaService {
     static async cadastrarReserva(dadosReserva) {
         const { idUsuario, idServico, dataReserva, horaInicio, dsReserva } = dadosReserva;
 
-        const servico = await Servico.findByPk(idServico);
+        const [servico] = await sequelize.query(
+            'SELECT servicos.duracao_minutos FROM servicos WHERE id_servico = :id_servico', {
+                replacements: { id_servico: idServico },
+                type: QueryTypes.SELECT
+            });
+
         const horaFinal = this.calcularHoraFinal(horaInicio, servico.duracao_minutos);
    
         const reservas = await Reserva.findAll({where: {
@@ -36,26 +41,25 @@ class ReservaService {
             }
         }
         
-        // return await Reserva.create({
-        //     id_usuario: idUsuario,
-        //     id_servico: idServico,
-        //     data_reserva: dataReserva,
-        //     hora_inicio: horaInicio,
-        //     hora_final: horaFinal,
-        //     ds_reserva: dsReserva,
-        //     status_reserva: STATUS_RESERVA.PENDENTE
-        // });
+        return await Reserva.create({
+            id_usuario: idUsuario,
+            id_servico: idServico,
+            data_reserva: dataReserva,
+            hora_inicio: horaInicio,
+            hora_final: horaFinal,
+            ds_reserva: dsReserva,
+            status_reserva: STATUS_RESERVA.PENDENTE
+        });
     }
 
     static calcularHoraFinal(horaInicio, duracaoServico) {
         const dataHoje = dayjs().format("YYYY-MM-DD");
-        
         const inicio = dayjs.tz(`${dataHoje} ${horaInicio}`, "YYYY-MM-DD HH:mm:ss","America/Sao_Paulo");
-
-        const termino = inicio.add(duracaoServico, 'minute');
-
-        const horaFinal = termino.format("HH:mm:ss");
-
+        
+        const final = inicio.add(duracaoServico, 'minute');
+        
+        const horaFinal = final.format("HH:mm:ss");
+        
         return horaFinal;
     }
 
