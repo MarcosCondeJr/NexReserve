@@ -27,15 +27,11 @@ class ReservaService {
 
         
         if (reservas.length > 0) {
-
-            let reserva = await sequelize.query( 
-                `SELECT id_reserva FROM reservas WHERE hora_inicio >= :horaFinal AND hora_final <= :horaInicio`, {
-                replacements: { horaFinal, horaInicio },
-                type: QueryTypes.SELECT,
-            });
-
-            console.log(reserva);
-            if(reserva) {
+            const reservaIcompativel = reservas.filter( reserva => {
+                return this.verificarReservaExistente(reserva, horaInicio, horaFinal);
+            })
+        
+            if(reservaIcompativel.length > 0) {
                 throw new Error('Já existe uma reserva nesse horário!');
             }
         }
@@ -61,6 +57,12 @@ class ReservaService {
         const horaFinal = termino.format("HH:mm:ss");
 
         return horaFinal;
+    }
+
+    static verificarReservaExistente(reserva, horaInicio, horaFinal) {
+         if (!(horaFinal <= reserva.hora_inicio || horaInicio >= reserva.hora_final)) {
+            return true;
+         }
     }
 }
 
