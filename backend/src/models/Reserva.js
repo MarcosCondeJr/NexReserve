@@ -30,7 +30,11 @@ Reserva.init({
         type: DataTypes.DATE,
         allowNull: false
     },
-    hora_reserva: {
+    hora_inicio: {
+        type: DataTypes.TIME,
+        allowNull: false
+    },
+    hora_final: {
         type: DataTypes.TIME,
         allowNull: false
     },
