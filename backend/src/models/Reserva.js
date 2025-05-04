@@ -27,7 +27,11 @@ Reserva.init({
         }
     },
     data_reserva: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    hora_reserva: {
+        type: DataTypes.TIME,
         allowNull: false
     },
     status_reserva: {
