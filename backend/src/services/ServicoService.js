@@ -16,7 +16,7 @@ class ServicoService {
     }
 
     static async cadastrarServico(dadosServico) {
-        const { nmServico, dsServico, vlServico, duracaoMinutos } = dadosServico;
+        const { nmServico, dsServico, vlServico, duracaoMinutos, idProfissional } = dadosServico;
 
         if (!nmServico) {
             throw new Error('É necessário informar o nome do serviço');
@@ -26,6 +26,8 @@ class ServicoService {
             throw new Error('É necessário informar o valor do serviço corretamente');
         } else if (!duracaoMinutos || isNaN(duracaoMinutos)) {
             throw new Error('É necessário informar a duração do serviço corretamente');
+        } else if (!idProfissional || isNaN(idProfissional)) {
+            throw new Error('É necessário informar o profissional');
         }
 
         return await Servico.create({
@@ -33,13 +35,14 @@ class ServicoService {
             ds_servico: dsServico,
             vl_servico: vlServico,
             ativo: true,
-            duracao_minutos: duracaoMinutos
+            duracao_minutos: duracaoMinutos,
+            id_profissional: idProfissional
         });
     }
 
     static async editarServico(idServico, dadosServico) {
         const servico = await Servico.findByPk(idServico);
-        const { nmServico, dsServico, vlServico, duracaoMinutos } = dadosServico;
+        const { nmServico, dsServico, vlServico, duracaoMinutos, idProfissional } = dadosServico;
 
         if (!servico) {
             throw new Error(`Serviço não encontrado!`);
@@ -53,12 +56,15 @@ class ServicoService {
             throw new Error('É necessário informar o valor do serviço corretamente');
         } else if (!duracaoMinutos || isNaN(duracaoMinutos)) {
             throw new Error('É necessário informar a duração do serviço corretamente');
+        } else if (!idProfissional || isNaN(idProfissional)) {
+            throw new Error('É necessário informar o profissional');
         }
 
         servico.nm_servico = nmServico;
         servico.ds_servico = dsServico;
         servico.vl_servico = vlServico;
         servico.duracaoMinutos = duracaoMinutos;
+        servico.id_profissional = idProfissional;
 
         return await servico.save();
     }
