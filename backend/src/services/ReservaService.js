@@ -68,6 +68,16 @@ class ReservaService {
             return true;
          }
     }
+
+    static async deletarReserva(idReserva) {
+        const reserva = await Reserva.findByPk(idReserva);
+
+        if (!reserva) {
+            throw new Error('Reserva não encontrada!');
+        }
+
+        return await reserva.destroy();
+    }
 }
 
 module.exports = ReservaService;

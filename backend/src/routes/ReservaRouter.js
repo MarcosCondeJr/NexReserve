@@ -4,5 +4,6 @@ const ReservaController = require('../controllers/ReservaController');
 
 router.get('/', ReservaController.listarReservas);
 router.post('/', ReservaController.cadastrarReserva);
+router.delete('/:id', ReservaController.deletarReserva);
 
 module.exports = router;

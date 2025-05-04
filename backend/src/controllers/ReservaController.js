@@ -19,6 +19,16 @@ const ReservaController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async deletarReserva(req, res) {
+        try {
+            const reservaDeletada = await ReservaService.deletarReserva(req.params.id);
+
+            res.status(200).send(reservaDeletada);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 
