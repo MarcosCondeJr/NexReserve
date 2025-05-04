@@ -37,6 +37,16 @@ const ProfissionalController = {
         } catch (err) {
             res.status(404).send(err.message); 
         }
+    },
+
+    async editarProfissional(req, res) {
+        try {
+            const profissional = await ProfissionalService.editarProfissional(req.params.id, req.body);
+
+            res.status(200).send(profissional);
+        } catch (err) {
+            res.status(404).send(err.message); 
+        }
     }
 }
 
