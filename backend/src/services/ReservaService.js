@@ -36,7 +36,7 @@ class ReservaService {
                 return this.verificarReservaExistente(reserva, horaInicio, horaFinal);
             })
         
-            if(reservaIcompativel.length > 0) {
+            if (reservaIcompativel.length > 0) {
                 throw new Error('Já existe uma reserva nesse horário!');
             }
         }
