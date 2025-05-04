@@ -17,6 +17,16 @@ const ProfissionalController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async cadastrarProfissional(req, res) {
+        try {
+            const profissionalNovo = await ProfissionalService.cadastrarProfissional(req.body);
+
+            res.status(201).send(profissionalNovo);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 

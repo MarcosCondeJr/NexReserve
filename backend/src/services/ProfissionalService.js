@@ -14,6 +14,24 @@ class ProfissionalService {
 
         return profissional;
     }
+
+    static async cadastrarProfissional(dadosProfissional) {
+        const { nmProfissional, emailProfissional, telefoneProfissional } = dadosProfissional;
+
+        if (!nmProfissional) {
+            throw new Error('É necessário informar o nome do Profissional!');
+        } else if (!emailProfissional) {
+            throw new Error('É necessário informar o email!');
+        } else if (!telefoneProfissional || isNaN(telefoneProfissional)) {
+            throw new Error('É necessário informar o telefone corretamente!');
+        }
+
+        return await Profissional.create({
+            nm_profissional: nmProfissional,
+            email_profissional: emailProfissional,
+            telefone_profissional: telefoneProfissional
+        });
+    }
 }
 
 module.exports = ProfissionalService;
