@@ -32,6 +32,16 @@ class ProfissionalService {
             telefone_profissional: telefoneProfissional
         });
     }
+
+    static async deletarProfissional(idProfissional) {
+        const profissional = await Profissional.findByPk(idProfissional);
+
+        if (!profissional) {
+            throw new Error('Profissional não encontrado!');
+        }
+
+        return await profissional.destroy();
+    }
 }
 
 module.exports = ProfissionalService;

@@ -27,6 +27,16 @@ const ProfissionalController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async deletarProfissional(req, res) {
+        try {
+            const profissionalDeletado = await ProfissionalService.deletarProfissional(req.params.id);
+
+            res.status(201).send(profissionalDeletado);
+        } catch (err) {
+            res.status(404).send(err.message); 
+        }
     }
 }
 
