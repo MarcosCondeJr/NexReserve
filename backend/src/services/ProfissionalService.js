@@ -45,13 +45,7 @@ class ProfissionalService {
             throw new Error('Profissional não encontrado!');
         }
 
-        if (!nmProfissional) {
-            throw new Error('É necessário informar o nome do Profissional!');
-        } else if (!emailProfissional) {
-            throw new Error('É necessário informar o email!');
-        } else if (!telefoneProfissional || isNaN(telefoneProfissional)) {
-            throw new Error('É necessário informar o telefone corretamente!');
-        }
+        this.validarDadosProfissionais(dadosProfissional);
 
         profissional.nm_profissional = nmProfissional;
         profissional.telefone_profissional = telefoneProfissional;

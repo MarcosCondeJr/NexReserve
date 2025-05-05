@@ -17,18 +17,8 @@ class ServicoService {
 
     static async cadastrarServico(dadosServico) {
         const { nmServico, dsServico, vlServico, duracaoMinutos, idProfissional } = dadosServico;
-
-        if (!nmServico) {
-            throw new Error('É necessário informar o nome do serviço');
-        } else if (!dsServico) {
-            throw new Error('É necessário informar a descrição');
-        } else if (!vlServico || isNaN(vlServico)) {
-            throw new Error('É necessário informar o valor do serviço corretamente');
-        } else if (!duracaoMinutos || isNaN(duracaoMinutos)) {
-            throw new Error('É necessário informar a duração do serviço corretamente');
-        } else if (!idProfissional || isNaN(idProfissional)) {
-            throw new Error('É necessário informar o profissional');
-        }
+        
+        this.validarDadosServico(dadosServico);
 
         return await Servico.create({
             nm_servico: nmServico,
@@ -48,17 +38,7 @@ class ServicoService {
             throw new Error(`Serviço não encontrado!`);
         }
 
-        if (!nmServico) {
-            throw new Error('É necessário informar o nome do serviço');
-        } else if (!dsServico) {
-            throw new Error('É necessário informar a descrição');
-        } else if (!vlServico || isNaN(vlServico)) {
-            throw new Error('É necessário informar o valor do serviço corretamente');
-        } else if (!duracaoMinutos || isNaN(duracaoMinutos)) {
-            throw new Error('É necessário informar a duração do serviço corretamente');
-        } else if (!idProfissional || isNaN(idProfissional)) {
-            throw new Error('É necessário informar o profissional');
-        }
+        this.validarDadosServico(dadosServico);
 
         servico.nm_servico = nmServico;
         servico.ds_servico = dsServico;
@@ -109,6 +89,30 @@ class ServicoService {
         servico.ativo = true;
 
         return await servico.save();
+    }
+
+    static validarDadosServico(dadosServico) {
+        const { nmServico, dsServico, vlServico, duracaoMinutos, idProfissional } = dadosServico;
+
+        if (!nmServico) {
+            throw new Error('É necessário informar o nome do serviço');
+        }
+
+        if (!dsServico) {
+            throw new Error('É necessário informar a descrição');
+        } 
+
+        if (!vlServico || isNaN(vlServico)) {
+            throw new Error('É necessário informar o valor do serviço corretamente');
+        } 
+
+        if (!duracaoMinutos || isNaN(duracaoMinutos)) {
+            throw new Error('É necessário informar a duração do serviço corretamente');
+        }
+
+         if (!idProfissional || isNaN(idProfissional)) {
+            throw new Error('É necessário informar o profissional');
+        }
     }
 }
 

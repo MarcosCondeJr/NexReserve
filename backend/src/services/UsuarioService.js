@@ -15,17 +15,7 @@ class UsuarioService {
     static async cadastrarUsuario(dadosUsuario) {
         const { nmUsuario, emailUsuario, senhaUsuario, tpUsuario, telefoneUsuario } = dadosUsuario;
 
-        if (!nmUsuario) {
-            throw new Error('É necessário informar o nome do usuário');
-        } else if (!emailUsuario) {
-            throw new Error('É necessário informar o Email');
-        } else if (!senhaUsuario) {
-            throw new Error('É necessário informar uma senha para cadastrar');
-        } else if (!tpUsuario) {
-            throw new Error('É necessário informar o tipo do usuário');
-        } else if (!telefoneUsuario) {
-            throw new Error('É necessário informar o telefone');
-        }
+        this.validarDadosUsuario(dadosUsuario);
 
         if (tpUsuario !== TIPO_USUARIO.ADMIN && tpUsuario !== TIPO_USUARIO.USUARIO) {
             throw new Error('Informe um Tipo de usuário válido!');
@@ -51,17 +41,7 @@ class UsuarioService {
             throw new Error(`Não foi possivel encontrar o Usuário com o id ${idUsuario}`);
         }
 
-        if (!nmUsuario) {
-            throw new Error('É necessário informar o nome do usuário');
-        } else if (!emailUsuario) {
-            throw new Error('É necessário informar o Email');
-        } else if (!senhaUsuario) {
-            throw new Error('É necessário informar uma senha para cadastrar');
-        } else if (!tpUsuario) {
-            throw new Error('É necessário informar o tipo do usuário');
-        } else if (!telefoneUsuario) {
-            throw new Error('É necessário informar o telefone');
-        }
+        this.validarDadosUsuario(dadosUsuario);
 
         const ramdomSalt = nodeCrypto.randomInt(10, 16);
         const senhaHash = await bcrypt.hash(senhaUsuario, ramdomSalt);
@@ -84,6 +64,30 @@ class UsuarioService {
         } 
 
         return await usuario.destroy();
+    }
+
+    static async validarDadosUsuario(dadosUsuario) {
+        const { nmUsuario, emailUsuario, senhaUsuario, tpUsuario, telefoneUsuario } = dadosUsuario;
+
+        if (!nmUsuario) {
+            throw new Error('É necessário informar o nome do usuário');
+        } 
+        
+        if (!emailUsuario) {
+            throw new Error('É necessário informar o Email');
+        }
+        
+        if (!senhaUsuario) {
+            throw new Error('É necessário informar uma senha para cadastrar');
+        } 
+        
+        if (!tpUsuario) {
+            throw new Error('É necessário informar o tipo do usuário');
+        }
+
+        if (!telefoneUsuario) {
+            throw new Error('É necessário informar o telefone');
+        }
     }
 }
 
