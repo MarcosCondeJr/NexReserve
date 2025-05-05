@@ -109,6 +109,16 @@ class ReservaService {
         return await reserva.save();
     }
 
+    static async deletarReserva(idReserva) {
+        const reserva = await Reserva.findByPk(idReserva);
+
+        if (!reserva) {
+            throw new Error('Reserva não encontrada!');
+        }
+
+        return await reserva.destroy();
+    }
+
     static calcularHoraFinal(horaInicio, duracaoServico) {
         const dataHoje = dayjs().format("YYYY-MM-DD");
         const inicio = dayjs.tz(`${dataHoje} ${horaInicio}`, "YYYY-MM-DD HH:mm:ss","America/Sao_Paulo");
@@ -124,16 +134,6 @@ class ReservaService {
          if (!(horaFinal <= reserva.hora_inicio || horaInicio >= reserva.hora_final)) {
             return true;
          }
-    }
-
-    static async deletarReserva(idReserva) {
-        const reserva = await Reserva.findByPk(idReserva);
-
-        if (!reserva) {
-            throw new Error('Reserva não encontrada!');
-        }
-
-        return await reserva.destroy();
     }
 
     static validarDadosDaReserva(dadosReserva) {
