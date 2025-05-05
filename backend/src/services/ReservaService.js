@@ -25,6 +25,8 @@ class ReservaService {
     }
 
     static async cadastrarReserva(dadosReserva) {
+        this.validarDadosDaReserva(dadosReserva);
+        
         const { idUsuario, idServico, dataReserva, horaInicio, dsReserva } = dadosReserva;
 
         const [servico] = await sequelize.query(
@@ -87,6 +89,18 @@ class ReservaService {
         }
 
         return await reserva.destroy();
+    }
+
+    static validarDadosDaReserva(dadosReserva) {
+        const { idUsuario, idServico, dataReserva, horaInicio } = dadosReserva;
+
+        if (!idUsuario || isNaN(idUsuario)) throw new Error('É necessário informar o Usuário');
+
+        if (!idServico || isNaN(idServico)) throw new Error('É necessário informar o Serviço');
+
+        if (!dataReserva) throw new Error('É necessário informar a data da reserva');
+
+        if (!horaInicio) throw new Error('É necessário informar a hora da reserva')
     }
 }
 
