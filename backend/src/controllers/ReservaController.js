@@ -48,6 +48,16 @@ const ReservaController = {
         } catch (err) {
             res.status(404).send(err.message);
         }
+    },
+
+    async alterarStatusReserva(req, res) {
+        try {
+            const novoStatus = await ReservaService.alterarStatusReserva(req.params.id, req.body);
+
+            res.status(200).send(novoStatus);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
     }
 }
 

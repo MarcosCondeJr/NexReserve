@@ -119,6 +119,25 @@ class ReservaService {
         return await reserva.destroy();
     }
 
+    static async alterarStatusReserva(idReserva, novoStatus) {
+        const reserva = await Reserva.findByPk(idReserva);
+        const { statusReserva } = novoStatus;
+
+        if ( reserva.status_reserva == STATUS_RESERVA.CONCLUIDA) {
+            throw new Error('Não é possivel mudar o status da reserva pois elá já foi concluida');
+        }
+        if ( reserva.status_reserva == STATUS_RESERVA.CANCELADA) {
+            throw new Error('Não é possivel mudar o status da reserva pois elá foi cancelada');
+        }
+
+        if (!statusReserva || !Object.values(STATUS_RESERVA).includes(statusReserva)) {
+            throw new Error('Status informado é inválido.');
+        }
+
+        reserva.status_reserva = statusReserva;
+        return await reserva.save();
+    }
+
     static calcularHoraFinal(horaInicio, duracaoServico) {
         const dataHoje = dayjs().format("YYYY-MM-DD");
         const inicio = dayjs.tz(`${dataHoje} ${horaInicio}`, "YYYY-MM-DD HH:mm:ss","America/Sao_Paulo");

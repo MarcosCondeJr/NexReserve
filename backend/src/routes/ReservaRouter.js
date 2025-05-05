@@ -7,5 +7,6 @@ router.get('/:id', ReservaController.buscarReservaPorId);
 router.post('/', ReservaController.cadastrarReserva);
 router.delete('/:id', ReservaController.deletarReserva);
 router.put('/:id', ReservaController.editarReserva);
+router.patch('/:id/status', ReservaController.alterarStatusReserva);
 
 module.exports = router;
