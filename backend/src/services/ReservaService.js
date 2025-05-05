@@ -64,6 +64,51 @@ class ReservaService {
         });
     }
 
+    static async editarReserva(idReserva, dadosReserva) {
+        this.validarDadosDaReserva(dadosReserva);
+
+        const { idUsuario, idServico, dataReserva, horaInicio, dsReserva } = dadosReserva;
+
+        const [servico] = await sequelize.query(
+            'SELECT servicos.duracao_minutos FROM servicos WHERE id_servico = :id_servico', {
+                replacements: { id_servico: idServico },
+                type: QueryTypes.SELECT
+            });
+
+        const horaFinal = this.calcularHoraFinal(horaInicio, servico.duracao_minutos);
+
+        const reservasCadastradas = await sequelize.query(
+            'SELECT * FROM reservas WHERE id_reserva != :id_reserva and id_usuario = :id_usuario and data_reserva = :data_reserva', {
+                replacements: { 
+                    id_reserva: idReserva,
+                    id_usuario: idUsuario,
+                    data_reserva: dataReserva
+                },
+                type: QueryTypes.SELECT
+            });
+
+        if (reservasCadastradas.length > 0) {
+            const reservaIcompativel = reservasCadastradas.filter( reserva => {
+                return this.verificarReservaExistente(reserva, horaInicio, horaFinal);
+            })
+
+            if (reservaIcompativel.length > 0) {
+                throw new Error('Já existe uma reserva nesse horário!');
+            }
+        }
+
+        const reserva = await Reserva.findByPk(idReserva);
+
+        reserva.id_usuario = idUsuario;
+        reserva.id_servico = idServico;
+        reserva.data_reserva = dataReserva;
+        reserva.hora_inicio = horaInicio;
+        reserva.hora_final = horaFinal;
+        reserva.ds_reserva = dsReserva;
+
+        return await reserva.save();
+    }
+
     static calcularHoraFinal(horaInicio, duracaoServico) {
         const dataHoje = dayjs().format("YYYY-MM-DD");
         const inicio = dayjs.tz(`${dataHoje} ${horaInicio}`, "YYYY-MM-DD HH:mm:ss","America/Sao_Paulo");

@@ -30,6 +30,16 @@ const ReservaController = {
         }
     },
 
+    async editarReserva(req, res) {
+        try {
+            const reservaEditada = await ReservaService.editarReserva(req.params.id, req.body);
+
+            res.status(200).send(reservaEditada);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
+    },
+
     async deletarReserva(req, res) {
         try {
             const reservaDeletada = await ReservaService.deletarReserva(req.params.id);
