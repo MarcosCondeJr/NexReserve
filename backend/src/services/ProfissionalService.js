@@ -16,15 +16,9 @@ class ProfissionalService {
     }
 
     static async cadastrarProfissional(dadosProfissional) {
+        this.validarDadosProfissionais(dadosProfissional);
+        
         const { nmProfissional, emailProfissional, telefoneProfissional } = dadosProfissional;
-
-        if (!nmProfissional) {
-            throw new Error('É necessário informar o nome do Profissional!');
-        } else if (!emailProfissional) {
-            throw new Error('É necessário informar o email!');
-        } else if (!telefoneProfissional || isNaN(telefoneProfissional)) {
-            throw new Error('É necessário informar o telefone corretamente!');
-        }
 
         return await Profissional.create({
             nm_profissional: nmProfissional,
@@ -64,6 +58,20 @@ class ProfissionalService {
         profissional.email_profissional = emailProfissional;
 
         return await profissional.save();
+    }
+
+    static validarDadosProfissionais(dadosProfissional) {
+        const { nmProfissional, emailProfissional, telefoneProfissional } = dadosProfissional;
+
+        if (!nmProfissional) {
+            throw new Error('É necessário informar o nome do Profissional!');
+        } 
+        if (!emailProfissional) {
+            throw new Error('É necessário informar o email!');
+        } 
+        if (!telefoneProfissional || isNaN(telefoneProfissional)) {
+            throw new Error('É necessário informar o telefone corretamente!');
+        }
     }
 }
 
