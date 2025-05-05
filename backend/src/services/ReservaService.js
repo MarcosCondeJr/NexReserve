@@ -26,7 +26,7 @@ class ReservaService {
 
     static async cadastrarReserva(dadosReserva) {
         this.validarDadosDaReserva(dadosReserva);
-        
+
         const { idUsuario, idServico, dataReserva, horaInicio, dsReserva } = dadosReserva;
 
         const [servico] = await sequelize.query(
@@ -38,7 +38,7 @@ class ReservaService {
         const horaFinal = this.calcularHoraFinal(horaInicio, servico.duracao_minutos);
    
         const reservas = await Reserva.findAll({where: {
-            id_servico: idServico,
+            id_usuario: idUsuario,
             data_reserva: dataReserva
         }});
 
