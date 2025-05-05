@@ -14,6 +14,16 @@ class ReservaService {
         return await Reserva.findAll();
     }
 
+    static async buscarReservaPorId(idReserva) {
+        const reserva = await Reserva.findByPk(idReserva);
+
+        if (!reserva) {
+            throw new Error('Reserva não encontrada!');
+        }
+
+        return reserva;
+    }
+
     static async cadastrarReserva(dadosReserva) {
         const { idUsuario, idServico, dataReserva, horaInicio, dsReserva } = dadosReserva;
 

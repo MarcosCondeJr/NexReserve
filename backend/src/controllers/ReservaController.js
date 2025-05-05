@@ -11,6 +11,15 @@ const ReservaController = {
         }
     },
 
+    async buscarReservaPorId(req, res) {
+        try {
+            const reserva = await ReservaService.buscarReservaPorId(req.params.id);
+            res.status(200).send(reserva);
+        } catch (err) {
+            res.status(404).send(err.message);
+        }
+    },
+
     async cadastrarReserva(req, res) {
         try {
             const novaReserva = await ReservaService.cadastrarReserva(req.body);
